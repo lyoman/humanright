@@ -14,9 +14,8 @@ class _SettingState extends State<Setting> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Navigator Drawer"),
-      ),
-      drawer: const HomeScreen(),
+        title: const Text("Settings"),
+      ), 
       body: const Center(
         child: Text("Setting Page"), 
       ),

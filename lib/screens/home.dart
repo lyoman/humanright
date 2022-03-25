@@ -1,91 +1,71 @@
-import 'package:flutter/foundation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:humanrights/screens/add_case.dart';
+import 'package:humanrights/screens/setting_page.dart';
 import 'package:humanrights/utils/constants.dart';
-import './profile_page.dart';
-import './setting_page.dart';
+import './reported_cases.dart';
+import './my_report.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+import '../widgets/navigation_header.dart';
+import '../widgets/navigation_item.dart';
 
+ 
+class HomeScreen extends StatelessWidget {
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const Home(),
+    );
+  }
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
-  
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            decoration: const BoxDecoration(color: Colors.blue),
-            child: Column(
-              children: <Widget>[
-                Flexible(
-                  child:  
-                   Center(
-                    child: Container(
-                      height: 160.0,
-                      width: 160.0,
-                       child: Center(
-                        child: ClipOval(
-                          child: Image.asset("assets/logo.jpeg"),
-                        ),
-                      ),
-                    ),
-                  ), 
-                ),
-                const Text(
-                  appNameText,
-                  style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white),
-                ),
-                const Text(
-                  appNameText,
-                  style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white70),
-                ),
-              ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(appNameText),
+      ),
+      drawer:Drawer(
+            child: ListView(
+                    children: const [
+                    NavHeader(),
+                    Divider(),
+                    NavItem(title: "Reported",icon: Icons.list_alt_outlined,widget: ReportedCases(),), 
+                    NavItem(title: "Add a Case",icon: Icons.save_alt_outlined,widget: CaseRegistration(),),
+                    NavItem(title: "Report Cases",icon: Icons.filter_frames_rounded,widget: Report(),),
+                    // NavItem(title: "Rate us",icon: Icons.star_rate,),
+                    // NavItem(title: "Support",icon: Icons.support_agent_outlined,),
+                    NavItem(title: "Settings",icon: Icons.settings,widget: Setting(),),
+                    // NavItem(title: "Log out",icon: Icons.logout,),
+                    ],
             ),
+       ),
+      bottomNavigationBar:  BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.blue[700],
+        selectedFontSize: 13,
+        unselectedFontSize: 13,
+        iconSize: 30,
+        items: const [
+          BottomNavigationBarItem(
+            label: "Home",
+            icon: Icon(Icons.home),
+
+          ) ,
+          BottomNavigationBarItem(
+            label: "Categories",
+            icon: Icon(Icons.grid_view),
           ),
-          ListTile(
-            leading: const Icon(Icons.person_outline),
-            title: const Text("Profile"),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const Profile()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings_applications),
-            title: const Text("Setting"),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const Setting()));
-              if (kDebugMode) {
-                print("Go to Settings");
-              }
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.arrow_back),
-            title: const Text("Logout"),
-            onTap: () {
-              if (kDebugMode) {
-                print("Logout Users");
-              }
-              Navigator.pop(context);
-              SystemNavigator.pop();
-            },
+          BottomNavigationBarItem(
+            label: "Reports",
+            icon: Icon(Icons.filter_frames_rounded),
           ),
         ],
       ),
