@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:humanrights/utils/constants.dart';
 import './profile_page.dart';
 import './setting_page.dart';
 
@@ -24,28 +25,28 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: <Widget>[
                 Flexible(
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    margin: const EdgeInsets.only(bottom: 5),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              'https://secure.gravatar.com/avatar/3a719607819fc579c2aafd4d21dad3d1?s=96&d=mm&r=g'),
-                          fit: BoxFit.fill),
+                  child:  
+                   Center(
+                    child: Container(
+                      height: 160.0,
+                      width: 160.0,
+                       child: Center(
+                        child: ClipOval(
+                          child: Image.asset("assets/logo.jpeg"),
+                        ),
+                      ),
                     ),
-                  ),
+                  ), 
                 ),
                 const Text(
-                  "Rajat Palankar",
+                  appNameText,
                   style: TextStyle(
                       fontSize: 15.0,
                       fontWeight: FontWeight.w500,
                       color: Colors.white),
                 ),
                 const Text(
-                  "https://protocoderspoint.com/",
+                  appNameText,
                   style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.w500,
