@@ -52,15 +52,21 @@ class _SigninState extends State<Signin> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 200,
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.09),
-                    child: Image.asset("assets/logo.jpeg"),
+                  Center(
+                    child: Container(
+                      height: 160.0,
+                      width: 160.0,
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(19),
+                      child: Center(
+                        child: ClipOval(
+                          child: Image.asset("assets/logo.jpeg"),
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(
-                    height: 24,
+                    height: 14,
                   ),
                   CustomFormField(
                     headingText: "Email",
@@ -120,9 +126,9 @@ class _SigninState extends State<Signin> {
                     text: "Sign Up",
                     onTap: () {
                       Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUp()));
+                        context,
+                        MaterialPageRoute(builder: (context) => const SignUp()),
+                      );
                     },
                   ),
                 ],
