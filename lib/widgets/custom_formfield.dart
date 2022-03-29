@@ -26,43 +26,45 @@ class CustomFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            bottom: 10,
-          ),
-          child: Text(
-            headingText,
-            style: KTextStyle.textFieldHeading,
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 20, right: 20),
-          decoration: BoxDecoration(
-            color: AppColors.grayshade,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: TextField(
-              maxLines: maxLines,
-              controller: controller,
-              textInputAction: textInputAction,
-              keyboardType: textInputType,
-              obscureText: obsecureText,
-              decoration: InputDecoration(
-                  hintText: hintText,
-                  hintStyle: KTextStyle.textFieldHintStyle,
-                  border: InputBorder.none,
-                  suffixIcon: suffixIcon),
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(
+              left: 20,
+              right: 20,
+              bottom: 10,
+            ),
+            child: Text(
+              headingText,
+              style: KTextStyle.textFieldHeading,
             ),
           ),
-        )
-      ],
+          Container(
+            margin: const EdgeInsets.only(left: 20, right: 20),
+            decoration: BoxDecoration(
+              color: AppColors.grayshade,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: TextField(
+                maxLines: maxLines,
+                controller: controller,
+                textInputAction: textInputAction,
+                keyboardType: textInputType,
+                obscureText: obsecureText,
+                decoration: InputDecoration(
+                    hintText: hintText,
+                    hintStyle: KTextStyle.textFieldHintStyle,
+                    border: InputBorder.none,
+                    suffixIcon: suffixIcon),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

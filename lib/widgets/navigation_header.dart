@@ -20,7 +20,10 @@ class NavHeader extends StatelessWidget {
               padding: const EdgeInsets.all(19),
               child: Center(
                 child: ClipOval(
-                  child: Image.asset("assets/logo.jpeg"),
+                  child: FittedBox(
+                    child: Image.asset("assets/logo.jpeg"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

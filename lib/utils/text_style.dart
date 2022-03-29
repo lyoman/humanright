@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'color.dart';
+import '../styles/color.dart';
 
 const TextStyle bntText = TextStyle(
   color: black,

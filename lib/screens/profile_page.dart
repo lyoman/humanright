@@ -12,7 +12,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Navigator Drawer"),
+        title: const Text("Profile"),
       ),
       // drawer: DrawerCode(),
       body: const Center(
