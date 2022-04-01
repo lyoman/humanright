@@ -4,41 +4,40 @@ class CustomDatePicker extends StatefulWidget {
   const CustomDatePicker({Key? key}) : super(key: key);
 
   @override
-  _CustomDatePickerState createState() {
-    return _CustomDatePickerState();
-  }
+  _CustomDatePickerState createState() => _CustomDatePickerState();
 }
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
-  String date = "";
-  DateTime selectedDate = DateTime.now();
+  final dateController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        ElevatedButton(
-          onPressed: () {
-            _selectDate(context);
-          },
-          child: const Text("Choose Date"),
+        const Text('Pick date: '),
+        const SizedBox(
+          width: 25.0,
         ),
-        Text("${selectedDate.day}/${selectedDate.month}/${selectedDate.year}")
+        Expanded(
+          flex: 4,
+          child: TextField(
+            readOnly: true,
+            controller: dateController,
+            decoration:
+                const InputDecoration(hintText: 'Click to Pick your Date'),
+            onTap: () async {
+              var date = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime(2100));
+              dateController.text = date.toString().substring(0, 10);
+            },
+          ),
+        ),
       ],
     );
-  }
-
-  _selectDate(BuildContext context) async {
-    final DateTime? selected = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2065),
-    );
-    if (selected != null && selected != selectedDate) {
-      setState(() {
-        selectedDate = selected;
-      });
-    }
   }
 }

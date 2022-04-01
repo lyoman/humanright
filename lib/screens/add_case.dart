@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:humanrights/widgets/custom_date_picker.dart';
-import 'package:humanrights/widgets/custom_image_picker.dart';
 
 class CaseRegistration extends StatelessWidget {
   const CaseRegistration({Key? key}) : super(key: key);
@@ -33,10 +32,31 @@ class _MyHomePageState extends State<_CaseRegistrationState> {
   TextEditingController pass = TextEditingController();
   TextEditingController address = TextEditingController();
   TextEditingController pincode = TextEditingController();
+  DateTime selectedDate = DateTime.now();
+  final dateController = TextEditingController();
 
   List<String> listItems = ["abc", "def", "hij"];
 
   String selectVal = "abc";
+  final _currencies = [
+    "Food",
+    "Transport",
+    "Personal",
+    "Shopping",
+    "Medical",
+    "Rent",
+    "Movie",
+    "Salary"
+  ];
+  String _currentSelectedValue = "Food";
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed
+    dateController.dispose();
+    super.dispose();
+  }
+
   List<Step> stepList() => [
         Step(
           state: _activeStepIndex <= 0 ? StepState.editing : StepState.complete,
@@ -48,6 +68,63 @@ class _MyHomePageState extends State<_CaseRegistrationState> {
           content: Container(
             child: Column(
               children: [
+                const CustomDatePicker(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    child: Wrap(
+                      spacing: 13,
+                      runSpacing: 20,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            const Text('Select Department us: '),
+                            Expanded(
+                              flex: 4,
+                              child: FormField<String>(
+                                builder: (FormFieldState<String> state) {
+                                  return InputDecorator(
+                                    decoration: InputDecoration(
+                                        labelStyle: const TextStyle(
+                                            color: Colors.lightGreenAccent,
+                                            fontSize: 16.0),
+                                        errorStyle: const TextStyle(
+                                            color: Colors.redAccent,
+                                            fontSize: 16.0),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0))),
+                                    isEmpty: _currentSelectedValue == '',
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton<String>(
+                                        value: _currentSelectedValue,
+                                        isDense: true,
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            _currentSelectedValue = newValue!;
+                                            state.didChange(newValue);
+                                          });
+                                        },
+                                        items: _currencies.map((String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 TextField(
                   controller: name,
                   decoration: const InputDecoration(
@@ -68,25 +145,10 @@ class _MyHomePageState extends State<_CaseRegistrationState> {
                 const SizedBox(
                   height: 5,
                 ),
-                const CustomDatePicker(),
                 const SizedBox(
                   height: 5,
                 ),
-               // const MyPickImageScreen(),
-                DropdownButton(
-                  value: selectVal,
-                  onChanged: (value) {
-                    setState(() {
-                      selectVal = value.toString();
-                    });
-                  },
-                  items: listItems.map((e) {
-                    return DropdownMenuItem(
-                      value: e,
-                      child: Text(e),
-                    );
-                  }).toList(),
-                ),
+                // const MyPickImageScreen(),
                 TextField(
                   controller: pass,
                   obscureText: true,
